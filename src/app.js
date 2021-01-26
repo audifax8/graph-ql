@@ -15,7 +15,7 @@ const {
   appName
 } = require('../config');
 
-const { intentRouter } = require('./router');
+const { intentRouter, boardRouter } = require('./router');
 
 const getServer = () => {
   const app = express();
@@ -26,6 +26,7 @@ const getServer = () => {
 
   app.get('/_health', health);
   app.use('/intent', intentRouter);
+  app.use('/board', boardRouter);
   app.get('*', endPointNotDefined);
   app.use(globalErrorHandler);
 

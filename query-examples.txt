@@ -1,0 +1,18 @@
+query {
+  intentWithBoard {
+    userName,
+    isCompleted,
+    randomBoard {
+        id,
+        ZERO,
+        SIX
+    }
+  },
+  sessionById(id: "3") {
+    id
+  },
+  sessions {
+    id,
+    title
+  }
+}

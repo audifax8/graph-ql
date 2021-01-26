@@ -1,6 +1,6 @@
 const { ApolloServer } = require('apollo-server');
 
-const { SessionAPI, IntentRESTAPI } = require('./data-sources');
+const { SessionAPI, IntentRESTAPI, BoardRESTAPI } = require('./data-sources');
 const resolvers = require('./resolvers');
 const typeDefs = require('./types');
 
@@ -11,7 +11,8 @@ const {
 
 const dataSources = () => ({
   SessionAPI: new SessionAPI(),
-  IntentRESTAPI: new IntentRESTAPI()
+  IntentRESTAPI: new IntentRESTAPI(),
+  BoardRESTAPI: new BoardRESTAPI()
 });
 
 const server = new ApolloServer({

@@ -47,7 +47,25 @@ class IntentRESTAPI extends RESTDataSource {
   }
 }
 
+class BoardRESTAPI extends RESTDataSource {
+  constructor() {
+    super();
+    this.baseURL = 'http://0.0.0.0:3000/board';
+  }
+
+  async getBoards() {
+    const board = await this.get('/');
+    return board.data;
+  }
+
+  async getBoardById(id) {
+    const board = await this.get(`/${id}`);
+    return board.data;
+  }
+}
+
 module.exports = {
   SessionAPI,
-  IntentRESTAPI
+  IntentRESTAPI,
+  BoardRESTAPI
 };

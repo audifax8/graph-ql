@@ -1,4 +1,4 @@
-const { intentService } = require('./services');
+const { intentService, boardService } = require('./services');
 
 const intentController = {
   getAll: intentService.getAll,
@@ -8,6 +8,11 @@ const intentController = {
   completeIntent: intentService.completeIntent
 }
 
+const boardController = {
+  getAll: boardService.getAll
+}
+
 module.exports = {
-  intentController
+  intentController,
+  boardController
 }
