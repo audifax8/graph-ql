@@ -14,7 +14,17 @@ module.exports = {
     },
     intentWithBoard: (parent, args, { dataSources }, info) => {
       return dataSources.IntentRESTAPI.getIntents();
+    }
+  },
+  Mutation: {
+    completeIntent: (parent, { id }, { dataSources }, info) => {
+      const completedIntent = dataSources.IntentRESTAPI.completeIntent(id);
+      return completedIntent;
     },
+    intentPost: (parent, { intent }, { dataSources }, info) => {
+      const intentCreated = dataSources.IntentRESTAPI.createIntent({ ...intent });
+      return intentCreated;
+    }
   },
   IntentBoard: {
     selectionsBoard: async (parent, args, { dataSources }, info) => {

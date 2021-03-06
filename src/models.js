@@ -32,7 +32,6 @@ const BOARD_MANDATORY_KEYS = [
   'EIGHT'
 ];
 
-
 class Board extends BaseModel {
   constructor(params) {
     super(params);
@@ -53,6 +52,14 @@ class Board extends BaseModel {
     Object.keys(params).forEach(param => {
       this[param] = params[param];
     });
+  }
+
+  setDefaultRandom() {
+    BOARD_MANDATORY_KEYS.reduce((curr, act) => {
+      this[act] = act;
+      return true;
+    }, true);
+    this.isRandom = true;
   }
 };
 

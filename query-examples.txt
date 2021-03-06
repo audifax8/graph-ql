@@ -16,3 +16,25 @@ query {
     title
   }
 }
+
+mutation {
+  completeIntent(id: "4dd827db-b93f-4cd6-8c22-c87998b24ae3") {
+      id,
+      isCompleted
+  }
+}
+
+mutation {
+  intentPost(intent: {
+      userName: "178"
+  }) {
+      id,
+      isCompleted
+  }
+}
+////
+with constants (searchText) as (values('%gypsy%')) select id, name, custom, configuration from searchable_recipes, constants where (lower(custom::text) like searchText or lower(product::text) like searchText or lower(configuration::text) like searchText) limit 100;
+with constants (searchText) as (values('%gypsy%')) select count(*) from searchable_recipes, constants where customer_id = 636 and (lower(custom::text) like searchText or lower(product::text) like searchText or lower(configuration::text) like searchText);
+
+/
+

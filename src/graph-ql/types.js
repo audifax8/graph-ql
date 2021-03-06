@@ -6,7 +6,11 @@ type Query {
   sessionById(id: ID): Session,
   intents: [Intent],
   intentById(id: ID): Intent,
-  intentWithBoard: [IntentBoard]
+  intentWithBoard: [IntentBoard],
+}
+type Mutation {
+  completeIntent(id: ID): Intent,
+  intentPost(intent: IntentCreate): Intent
 }
 type Session {
   id: ID!,
@@ -18,6 +22,9 @@ type Intent {
   isCompleted: Boolean,
   randomBoard: String,
   selectionsBoard: String
+}
+input IntentCreate {
+  userName: String
 }
 type IntentBoard {
   id: ID!,

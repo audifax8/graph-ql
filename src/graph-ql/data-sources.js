@@ -45,6 +45,16 @@ class IntentRESTAPI extends RESTDataSource {
     const intent = await this.get(`/${id}`);
     return intent.data;
   }
+
+  async completeIntent(id) {
+    const intent = await this.post(`/${id}`);
+    return intent.data;
+  }
+
+  async createIntent(intent) {
+    const result = await this.post(`/`, intent);
+    return result.data;
+  }
 }
 
 class BoardRESTAPI extends RESTDataSource {

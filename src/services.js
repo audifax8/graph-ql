@@ -28,15 +28,19 @@ const intentService = {
     const randomBoard = new Board(requestBody.randomBoard);
     const selectionsBoard = new Board(requestBody.selectionsBoard);
 
+    if (randomBoard.isEmpty()) {
+      randomBoard.setDefaultRandom();
+    }
     repository.createBoard(randomBoard);
+
     if (!selectionsBoard.isEmpty()) {
       repository.createBoard(selectionsBoard);
     }
 
     const intent = new Intent(
       {
-        randomBoard: randomBoard.id,
         userName: requestBody.userName || '',
+        randomBoard: (!randomBoard.isEmpty()) ? randomBoard.id : undefined,
         selectionsBoard: (!selectionsBoard.isEmpty()) ? selectionsBoard.id : undefined
       }
     );
