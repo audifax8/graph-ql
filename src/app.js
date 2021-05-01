@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const {
   health,
@@ -15,11 +16,16 @@ const {
   appName
 } = require('../config');
 
-const { intentRouter, boardRouter } = require('./router');
+const {
+  intentRouter,
+  boardRouter,
+  heroRouter
+} = require('./router');
 
 const getServer = () => {
   const app = express();
 
+  app.use(cors());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(morgan(serverLogFormat));
@@ -27,6 +33,7 @@ const getServer = () => {
   app.get('/_health', health);
   app.use('/intent', intentRouter);
   app.use('/board', boardRouter);
+  app.use('/hero', heroRouter);
   app.get('*', endPointNotDefined);
   app.use(globalErrorHandler);
 
@@ -36,7 +43,6 @@ const getServer = () => {
 const app = getServer();
 app.server = app.listen(serverPort, serverHost, err => {
   console.log(`${appName} running on port: http://${serverHost + ':' + serverPort}`);
-  // Tell neught2 that the server is now up and running
   if (!err && process.send) {
     process.send('online');
   }

@@ -134,7 +134,78 @@ const intentService = {
   }
 };
 
+const heroService = {
+  levelByShards: (shards, res) => {
+    if (!shards) {
+      throw new ApiError(400, 'shards required');
+    }
+    const parsedShards = parseInt(shards);
+    if (isNaN(parsedShards)) {
+      throw new ApiError(400, 'shards should be a number');
+    }
+
+    if (parsedShards > 120) {
+      throw new ApiError(400, '120 max shards');
+    }
+
+    const heroLevel = (shardsCount) => {
+      const INITIAL_LEVEL = 2;
+      const rec = (shards, level) => {
+        const nextShardsCount = shards - level;
+        const nextLevel = level + 1;
+        if (nextLevel > nextShardsCount) {
+          return level;
+        }
+        return rec(nextShardsCount, nextLevel);
+      }
+      return rec(shardsCount, INITIAL_LEVEL);
+    }
+
+    const level = heroLevel(parsedShards);
+
+    const apiResponse = new ApiResponse(
+      {
+        status: 200,
+        data: level
+      }
+    );
+    return res.status(200).send(apiResponse);
+  },
+  shardsByLevel: (level, res) => {
+    if (!level) {
+      throw new ApiError(400, 'level required');
+    }
+
+    const parsedLevel = parseInt(level);
+    if (isNaN(parsedLevel)) {
+      throw new ApiError(400, 'level should be a number');
+    }
+
+    if (parsedLevel > 15) {
+      throw new ApiError(400, '15 max level');
+    }
+
+    const shardsCount = (level) => {
+      if (level < 3) {
+        return level;
+      }
+      return level + shardsCount(level-1);
+    }
+
+    const shards = shardsCount(parsedLevel);
+    const apiResponse = new ApiResponse(
+      {
+        status: 200,
+        data: shards
+      }
+    );
+    return res.status(200).send(apiResponse);
+  }
+};
+
+
 module.exports = {
   intentService,
-  boardService
+  boardService,
+  heroService
 };

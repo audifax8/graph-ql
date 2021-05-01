@@ -1,8 +1,14 @@
 FROM node:10.17
 
-WORKDIR /app
+ENV PORT=3000
 
-COPY . .
+COPY . /var/www
+
+WORKDIR /var/www
+
+VOLUME ["/var/www"]
+
+EXPOSE $PORT
 
 RUN npm install
 

@@ -31,9 +31,8 @@ const globalErrorHandler = (err, req, res, next) => {
   return res.status(statusCode).json(apiResponse);
 };
 
-const endPointNotDefined = (req, res, next) => {
+const endPointNotDefined = () => {
   throw new ApiError(404, 'End point not defined');
-  next();
 }
 
 module.exports = {
